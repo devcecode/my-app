@@ -1,10 +1,24 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 function App() {
+
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if(entry.isIntersecting) {
+        console.log(`Cargar más datos`)
+      }
+    })
+
+    observer.observe(ref.current)
+
+    return () => observer.disconnect()
+  }, [])
+
+
   return (
-    <div>
-      This is my app
-    </div>
+    <div ref={ref}></div>
   )
 }
 
